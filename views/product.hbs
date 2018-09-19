@@ -1,0 +1,8 @@
+<h1>{{ name }}</h1>
+<br> {{ price }} {{ inventory }}
+<br> <a href="/products/{{id}}/edit" type=button>Edit</a>
+<br> <form method="post" action="/products/{{id}}?_method=DELETE">
+    <button type='submit'>Delete</button>
+</form>
+
+<br> {{> footer}}

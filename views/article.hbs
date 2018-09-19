@@ -1,0 +1,8 @@
+<h1>{{ title }}</h1>
+<br> {{ author }} {{ body }}
+<br> <a href="/articles/{{title}}/edit" type=button>Edit</a>
+<br> <form method="post" action="/articles/{{title}}?_method=DELETE">
+    <button type='submit'>Delete</button>
+</form>
+
+<br> {{> footer}}

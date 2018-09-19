@@ -1,0 +1,13 @@
+<form method="post" action="/products/{{id}}/edit?_method=PUT">
+  <label>Name:
+    <input type="text" name="name" value={{name}} id="" required>
+  </label>
+  <label>Price:
+    <input type="number" step=".01" name="price" value={{price}} id="" required>
+  </label>
+   <label>Inventory:
+    <input type="number" name="inventory" value={{inventory}} id="" required>
+  </label>
+  <input type="submit" value="Submit" required>
+</form>
+<br> {{> footer}}
