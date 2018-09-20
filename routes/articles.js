@@ -11,11 +11,9 @@ const knex = require('../knex/knex.js');
 
     //////////ARTICLES//////////
     artRouter.get('/', (req, res) => {
-        // const items = artInv.all();
-        // res.render('articlecat', { items });
         artInv.all()
             .then ( results => {
-                console.log('Render /articles page', results)
+                console.log('Render /articles page', results.rows)
                 const items = results.rows
                 res.render('articlecat', { items });
             })
@@ -25,57 +23,82 @@ const knex = require('../knex/knex.js');
     });
 
     // //////////NEW ARTICLE FORM//////////
-    // artRouter.get('/new', (req, res) => {
-    //     console.log('Render /articles/new page')
-    //     res.render('newArt');
-    // });
+    artRouter.get('/new', (req, res) => {
+        console.log('Render /articles/new page')
+        res.render('newArt');
+    });
 
     // //////////ARTICLE DETAIL PAGE//////////
-    // artRouter.get('/:title', (req, res) => {
-    //     console.log('Render /articles/:title page')
-    //     const { title } = req.params;
-    //     const item = artInv.getItemByTitle(title);
-    //     console.log('Article', item.title);
-    //     res.render('article', item);
-    // });
+    artRouter.get('/:title', (req, res) => {
+        console.log('Render /articles/:title page')
+        const { title } = req.params;
+        knex.raw(`SELECT * FROM copy WHERE title = '${title}'`)
+            .then( result => {
+                console.log('Article', result.rows)
+                const item = result.rows[0]
+                res.render('article', item)
 
-    // //////////EDIT//////////
-    // artRouter.get('/:title/edit', (req, res) => {
-    //     console.log('Render /articles/:title/edit page')
-    //     const { title } = req.params;
-    //     const item = artInv.getItemByTitle(title);
-    //     // console.log('Product', item);
-    //     res.render('editArt', item);
+            })
+            .catch( err => {
+                console.log('Error', err)
+            })
+    });
 
-    // });
+    //////////EDIT//////////
+    artRouter.get('/:title/edit', (req, res) => {
+        console.log('Render /articles/:title/edit page')
+        const { title } = req.params;
+        knex.raw(`SELECT * FROM copy WHERE title = '${title}'`)
+            .then( result => {
+                console.log('Article', result.rows)
+                const item = result.rows[0]
+                console.log(item)
+                res.render('editArt', item)
+            })
+            .catch( err => {
+                console.log('error', err)
+            })
+    });
 
     // //////////CREATE ARTICLE//////////
-    // artRouter.post('/new', (req, res) => {
-    //     const item = req.body;
-    //     if (item.title !== '' && item.author !== '' && item.body !== '') {
-    //         artInv.add(item);
-    //         res.redirect('/articles')  
-    //     }
-    //     else {
-    //         console.log('Unknown error')
-    //     }
-    // });
+    artRouter.post('/new', (req, res) => {
+        const item = req.body;
+        knex.raw(`INSERT INTO copy (title, author, body) VALUES ('${item.title}','${item.author}', '${item.body}')`)
+            .then( result => {
+                res.redirect('/articles')
+            })
+            .catch( err => {
+                console.log('error', err)
+            })
+    });
 
-    // //////////EDIT ARTICLE//////////
-    // artRouter.put('/:title/edit', (req, res) => {
-    //     const { title } = req.params;
-    //     const item = artInv.updateItemByTitle(title, req);
-    //     console.log('Put', item)
+    //////////EDIT ARTICLE//////////
+    artRouter.put('/:title/edit', (req, res) => {
 
-    //     res.redirect('/articles') 
-    // });
+        const { title } = req.params;
+        const artitle = req.body.title
+        const arauth = req.body.author
+        const arbody = req.body.body
+        knex.raw(`UPDATE copy SET title = '${artitle}', author = '${arauth}', body = '${arbody}' WHERE title = '${title}'`)
+        .then( result => {
+            res.redirect(`/articles`)
+        })
+        .catch( err => {
+            console.log('error', err)
+        })
+    });
 
-    // //////////DELETE ARTICLE//////////
-    // artRouter.delete('/:title', (req, res) => {
-    //     const { title } = req.params;
-    //     // console.log(title)
-    //     const item = artInv.deleteItemByTitle(title);
-    //     res.redirect('/articles')
-    // });    
+    //////////DELETE ARTICLE//////////
+    artRouter.delete('/:title', (req, res) => {
+        const { title } = req.params;
+        console.log(title)
+        knex.raw(`DELETE FROM copy WHERE title = '${title}'`)
+            .then( result => {
+                res.redirect('/articles')
+            })
+            .catch( err => {
+                console.log('error', err)
+            })
+    });    
 
     module.exports = artRouter

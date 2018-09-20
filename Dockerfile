@@ -15,6 +15,8 @@ RUN npm install -g gulp
 # Install node module dependencies
 RUN npm install
 
+RUN npm rebuild node-sass
+
 # Add the rest of the project files(most builds will start from here based on cache)
 COPY . .
 
