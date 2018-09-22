@@ -11,16 +11,37 @@ h1 {
   font-family: "Unica One", cursive;
   font-size: 60px; }
 
-a.button {
+footer {
+  grid-column: 1/7;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #e8175d;
+  height: 80px;
+  padding: 20px 0px 0px 30px; }
+  footer a {
+    font-size: 36px;
+    font-family: "Unica One", cursive;
+    color: #ffffff;
+    opacity: .8; }
+  footer a:hover {
+    opacity: 1; }
+
+.wrapper {
+  display: grid;
+  width: 100vw;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr auto;
+  grid-gap: 20px; }
+
+.button {
   background-color: #cc527a;
   color: #ffffff;
   padding: 10px; }
 
-a.button:hover {
+.button:hover {
   background-color: #e8175d; }
-
-footer {
-  margin-top: 30px; }
 
 .hero {
   display: grid;
@@ -43,27 +64,46 @@ footer {
   font-family: "Unica One", cursive;
   opacity: .8;
   padding-top: 40vh;
-  padding-bottom: 40vh; }
+  padding-bottom: 40vh;
+  grid-row: 1/1; }
 
 .hero > a:nth-child(2) {
   grid-column: 1/4;
-  grid-row: 1/1;
   z-index: 3; }
 
 .hero > a:nth-child(3) {
   grid-column: 4/7;
-  grid-row: 1/1;
   z-index: 4; }
 
-.hero a:hover {
+.hero > a:hover {
   opacity: 1; }
+
+.cat {
+  grid-column: 1/5;
+  grid-row: 1/1;
+  padding: 30px 0px 60px 30px; }
+  .cat h1 {
+    margin-top: 20px; }
+  .cat div {
+    margin: 30px 0px 30px 0px; }
+  .cat div > a {
+    font-size: 36px;
+    color: #363636; }
+  .cat div > a:hover {
+    color: #cc527a; }
+
+.new {
+  grid-column: 6/7;
+  grid-row: 1/1;
+  padding: 60px 30px 0px 0px;
+  text-align: right; }
 
 #fancy-hero-left {
   color: #ffffff;
   font-size: 60px;
-  top: 50%;
-  bottom: 50%; }
+  font-family: "Unica One", cursive; }
 
 #fancy-hero-right {
   color: #000000;
-  font-size: 60px; }
+  font-size: 60px;
+  font-family: "Unica One", cursive; }

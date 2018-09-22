@@ -1,11 +1,13 @@
+<div class='cat'>
 <h1>Inventory:</h1>
 {{#each items}}
 <div>
   <a href='/products/{{id}}'>{{name}}</a>
 </div>
 {{/each}}
+</div>
+<div class='new'>
+  <a class='button' href="/products/new">NEW ITEM</a>
+</div>
+{{> footer}}
 
-<br>
-<a href="/products/new">NEW ITEM</a>
-
-<br> {{> footer}}
